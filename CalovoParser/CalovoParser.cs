@@ -1,23 +1,18 @@
-﻿using System;
-
-namespace Parser.Services
+﻿public class Event
 {
-    public class Event
-    {
-        public string datetime;
-        public string summary;
+    public string datetime;
+    public string summary;
 
-        public Event() {
-            this.datetime = "";
-            this.summary = "";
-        }
+    public Event() {
+        this.datetime = "";
+        this.summary = "";
     }
-    public class CalovoParser
+}
+public class CalovoParser
+{
+    public Event GetNextEvent()
     {
-        public Event GetNextEvent()
-        {
-            Event g = new Event();
-            return g;
-        }
+        Event g = new Event();
+        return g;
     }
 }
