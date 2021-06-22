@@ -50,16 +50,53 @@ SEQUENCE:0
 TRANSP:TRANSPARENT
 STATUS:CONFIRMED
 DTEND;TZID=Europe/Berlin:20200613T173000
-LOCATION:Merkur Spielarena";
-
-        //{
+LOCATION:Merkur Spielarena
+SUMMARY:Fortuna Düsseldorf - Borussia Dortmund | Bundesliga | 31. Spieltag
+DESCRIPTION:Dieser Kalenderservice wird dir präsentiert von bundesliga.de\
+ n\n31. Spieltag\n\n\n\n\nAnbieter-Impressum: https://www.bundesliga.com/de
+ /bundesliga/info/impressum/\n\n\ncalfeed löschen? Anleitung: bit.ly/calfe
+ ed_loeschen
+DTSTAMP:20200613T100139Z
+CREATED:20190628T102615Z
+LAST-MODIFIED:20200613T100139Z
+BEGIN:VALARM
+TRIGGER:-P0DT1H0M0S
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Fortuna Düsseldorf - Borussia Dortmund | Bundesliga 
+ | 31. Spieltag
+END:VALARM
+END:VEVENT";
             
-        //}
-        string[] rest;
+        string[] text_gesplittet;
+        string text, datum, spiel, zeile;
+        int a, b, c, d, e;
 
-            //calendar.Substring()
-            rest = calendar.Split("BEGIN:VEVENT");
-            Console.WriteLine(rest);
+            text_gesplittet = calendar.Split("BEGIN:VEVENT");
+            a = text_gesplittet.Length;
+            for (int i = 0; i < a; i++)
+            {
+                text = text_gesplittet[i];
+                if (text.Contains("DTSTART"))
+                {
+                    //Console.WriteLine(text);
+                    b = text.IndexOf("DTSTART");
+                    c = text.IndexOf("SEQUENCE");
+                    zeile = text.Substring(b, c - b);
+                    d = zeile.IndexOf(":");
+                    datum = zeile.Substring(d + 1, 15);
+                    Console.WriteLine(datum);
+                }
+                if (text.Contains("SUMMARY"))
+                {
+                    b = text.IndexOf("SUMMARY");
+                    c = text.IndexOf("DESCRIPTION");
+                    zeile = text.Substring(b, c - b);
+                    d = zeile.IndexOf(":");
+                    e = zeile.IndexOf("|");
+                    spiel = zeile.Substring(d + 1, e - d - 1);
+                    Console.WriteLine(spiel);
+                }
+            }
         }
     }
 }
