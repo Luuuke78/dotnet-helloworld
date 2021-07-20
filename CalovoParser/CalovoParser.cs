@@ -23,6 +23,7 @@ public class CalovoParser
         string text, datum, spiel, zeile;
         int a, b, c, d, e;
         Event g = new Event();
+        datum = "";
 
         b = this.calendar.IndexOf("DTSTART");
         if (b > -1) {
@@ -30,6 +31,11 @@ public class CalovoParser
             zeile = this.calendar.Substring(b, c - b);
             d = zeile.IndexOf("#");
             g.datetime = zeile.Substring(d + 1, 15);
+            datum = zeile.Substring(d + 1, 8);
+
+            if (Convert.ToInt32(datum) < Convert.ToInt32(startDate)) {
+                g.datetime = "";
+            }
         }
 
         b = this.calendar.IndexOf("SUMMARY");
@@ -39,6 +45,10 @@ public class CalovoParser
             d = zeile.IndexOf("#");
             e = zeile.IndexOf("|");
             g.summary = zeile.Substring(d + 1, e - d - 1).Trim();
+            
+            if (Convert.ToInt32(datum) < Convert.ToInt32(startDate)) {
+                g.summary = "";
+            }
         }
         return g;
     }
