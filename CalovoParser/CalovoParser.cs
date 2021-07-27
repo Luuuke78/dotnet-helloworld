@@ -25,29 +25,39 @@ public class CalovoParser
         Event g = new Event();
         datum = "";
 
-        b = this.calendar.IndexOf("DTSTART");
-        if (b > -1) {
-            c = this.calendar.IndexOf("SEQUENCE");
-            zeile = this.calendar.Substring(b, c - b);
-            d = zeile.IndexOf("#");
-            g.datetime = zeile.Substring(d + 1, 15);
-            datum = zeile.Substring(d + 1, 8);
+        string[] text_gesplittet = this.calendar.Split("BEGIN:VEVENT");
+        a = text_gesplittet.Length;
+        for (int i = 0; i < a; i++)
+        {
+            text = text_gesplittet[i];
+            if (text.Contains("DTSTART"))
+            {
 
-            if (Convert.ToInt32(datum) < Convert.ToInt32(startDate)) {
-                g.datetime = "";
-            }
-        }
+                b = text.IndexOf("DTSTART");
+                if (b > -1) {
+                    c = text.IndexOf("SEQUENCE");
+                    zeile = text.Substring(b, c - b);
+                    d = zeile.IndexOf(":");
+                    g.datetime = zeile.Substring(d + 1, 15);
+                    datum = zeile.Substring(d + 1, 8);
+                    Console.WriteLine(datum);
+                    if (Convert.ToInt32(datum) < Convert.ToInt32(startDate)) {
+                        g.datetime = "";
+                    }
+                }
 
-        b = this.calendar.IndexOf("SUMMARY");
-        if (b > -1) {
-            c = this.calendar.IndexOf("DESCRIPTION");
-            zeile = this.calendar.Substring(b, c - b);
-            d = zeile.IndexOf("#");
-            e = zeile.IndexOf("|");
-            g.summary = zeile.Substring(d + 1, e - d - 1).Trim();
-            
-            if (Convert.ToInt32(datum) < Convert.ToInt32(startDate)) {
-                g.summary = "";
+                b = text.IndexOf("SUMMARY");
+                if (b > -1) {
+                    c = text.IndexOf("DESCRIPTION");
+                    zeile = text.Substring(b, c - b);
+                    d = zeile.IndexOf(":");
+                    e = zeile.IndexOf("|");
+                    g.summary = zeile.Substring(d + 1, e - d - 1).Trim();
+                    
+                    if (Convert.ToInt32(datum) < Convert.ToInt32(startDate)) {
+                        g.summary = "";
+                    }
+                }
             }
         }
         return g;
