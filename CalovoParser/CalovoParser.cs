@@ -20,10 +20,12 @@ public class CalovoParser
     }
     public Event GetNextEvent(string startDate)
     {
-        string text, datum, spiel, zeile;
+        string text, datum, spiel, zeile, datum_k, datum_curr, datum_k_curr;
         int a, b, c, d, e;
         Event g = new Event();
-        datum = "";
+        datum_curr = "";
+        datum = null;
+        datum_k = "";
 
         string[] text_gesplittet = this.calendar.Split("BEGIN:VEVENT");
         a = text_gesplittet.Length;
@@ -38,14 +40,30 @@ public class CalovoParser
                     c = text.IndexOf("SEQUENCE");
                     zeile = text.Substring(b, c - b);
                     d = zeile.IndexOf(":");
-                    g.datetime = zeile.Substring(d + 1, 15);
-                    datum = zeile.Substring(d + 1, 8);
-                    Console.WriteLine(datum);
-                    if (Convert.ToInt32(datum) < Convert.ToInt32(startDate)) {
-                        g.datetime = "";
+                    datum_k_curr = zeile.Substring(d + 1, 15);
+                    datum_curr = zeile.Substring(d + 1, 8);
+                    Console.WriteLine(datum_curr);
+                    if (Convert.ToInt32(datum_curr) < Convert.ToInt32(startDate)) {
+                        datum_k = "";
                     }
+                    else {
+                        Console.WriteLine(Convert.ToInt32(datum));
+                        if (Convert.ToInt32(datum) != 0) {
+                            if (Convert.ToInt32(datum_curr) < Convert.ToInt32(datum)) {                        
+                                datum_k = datum_k_curr;
+                            }
+                        }
+                        else {
+                            Console.WriteLine(datum_curr);
+                            Console.WriteLine(datum_k);
+                            datum_k = datum_k_curr;
+                            datum = datum_curr;
+                            Console.WriteLine(datum_k);
+                        }                       
+                    }
+                    g.datetime = datum_k;
                 }
-
+                /*
                 b = text.IndexOf("SUMMARY");
                 if (b > -1) {
                     c = text.IndexOf("DESCRIPTION");
@@ -58,6 +76,7 @@ public class CalovoParser
                         g.summary = "";
                     }
                 }
+                */
             }
         }
         return g;
