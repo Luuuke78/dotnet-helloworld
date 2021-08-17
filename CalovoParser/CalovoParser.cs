@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 
 public class Event
 {
@@ -15,8 +16,18 @@ public class CalovoParser
 {
     private string calendar;
     public CalovoParser(string calendar) {
-        Console.WriteLine(calendar);
         this.calendar = calendar;
+    }
+    public List<Event> GetAllNextEvents(string startDate) {
+        List<Event> eventlist = new List<Event>();
+        string datum_curr = startDate;
+        while(Convert.ToBoolean(datum_curr.Length))
+        {
+            Event e = this.GetNextEvent(datum_curr.Substring(0, 8));
+            datum_curr = e.datetime;
+            eventlist.Add(e);
+        }
+        return eventlist;
     }
     public Event GetNextEvent(string startDate)
     {
@@ -40,25 +51,22 @@ public class CalovoParser
                     c = text.IndexOf("SEQUENCE");
                     zeile = text.Substring(b, c - b);
                     d = zeile.IndexOf(":");
+                    Console.WriteLine("Zeile: " + zeile);
                     datum_k_curr = zeile.Substring(d + 1, 15);
                     datum_curr = zeile.Substring(d + 1, 8);
-                    Console.WriteLine(datum_curr);
-                    if (Convert.ToInt32(datum_curr) < Convert.ToInt32(startDate)) {
+                    if (Convert.ToInt32(datum_curr) <= Convert.ToInt32(startDate)) {
                         datum_k = "";
                     }
                     else {
-                        Console.WriteLine(Convert.ToInt32(datum));
+                        //Console.WriteLine(Convert.ToInt32(datum));
                         if (Convert.ToInt32(datum) != 0) {
-                            if (Convert.ToInt32(datum_curr) < Convert.ToInt32(datum)) {                        
+                            if (Convert.ToInt32(datum_curr) <= Convert.ToInt32(datum)) {                        
                                 datum_k = datum_k_curr;
                             }
                         }
                         else {
-                            Console.WriteLine(datum_curr);
-                            Console.WriteLine(datum_k);
                             datum_k = datum_k_curr;
                             datum = datum_curr;
-                            Console.WriteLine(datum_k);
                         }                       
                     }
                     g.datetime = datum_k;
