@@ -52,7 +52,10 @@ public class CalovoParser
                     zeile = text.Substring(b, c - b);
                     d = zeile.IndexOf(":");
                     Console.WriteLine("Zeile: " + zeile);
-                    datum_k_curr = zeile.Substring(d + 1, 15);
+                    if (zeile.Substring(d + 1).Trim().Length > 8)
+                        datum_k_curr = zeile.Substring(d + 1, 15);
+                    else
+                        datum_k_curr = zeile.Substring(d + 1, 8);
                     datum_curr = zeile.Substring(d + 1, 8);
                     if (Convert.ToInt32(datum_curr) <= Convert.ToInt32(startDate)) {
                         datum_k = "";
