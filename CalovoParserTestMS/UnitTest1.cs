@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace CalovoParserTestMS
 {
     [TestClass]
-    public class UnitTest1
+    public class CalovoParserTest
     {
         [TestMethod]
         public void Test_GetNextEvent_emptyCal_returnsEmptySummaryAndDate()
@@ -28,22 +28,25 @@ END:VEVENT", datetime, summary);
         [TestMethod]
         public void Test_GetNextEvent_calWithOneEntry_returnsReferenceEvent()
         {
-            string summary = "Borussia Dortmund - Hertha BSC | Bundesliga | 30. Spieltag";
+            string summary = "Sample summary...";
             string datetime = "20210721T183000";
             string calendar = this.createStringForOneEvent(datetime, summary);
             CalovoParser p = new CalovoParser(calendar);
             Event e = p.GetNextEvent("20210720");
             Assert.AreEqual(datetime, e.datetime);
+            Assert.AreEqual(summary, e.summary);
+            Assert.AreEqual(summary, e.summary);
         }
-
         [TestMethod]
         public void Test_GetNextEvent_calWithOneEntryButOnlyDate_returnsReferenceEvent()
         {
+            string summary = "Sample summary...";
             string datetime = "20210721";
-            string calendar = this.createStringForOneEvent(datetime, "");
+            string calendar = this.createStringForOneEvent(datetime, summary);
             CalovoParser p = new CalovoParser(calendar);
             Event e = p.GetNextEvent("20210720");
             Assert.AreEqual(datetime, e.datetime);
+            Assert.AreEqual(summary, e.summary);
         }
 
         [TestMethod]
@@ -53,6 +56,7 @@ END:VEVENT", datetime, summary);
             CalovoParser p = new CalovoParser(calendar);
             Event e = p.GetNextEvent("20210812");
             Assert.AreEqual("", e.datetime);
+            Assert.AreEqual("", e.summary);
         }
         
 
@@ -60,11 +64,12 @@ END:VEVENT", datetime, summary);
         public void Test_GetNextEvent_calWithTwoEntriesAskForFirstOne_returnsFirstEvent()
         {
             string firstDateTime = "20210721T183000";
-            string calendar = this.createStringForOneEvent(firstDateTime, "BVB | Hertha | 30.") +
-                this.createStringForOneEvent("20210728T183000", "BVB | Hertha | 31.");
+            string calendar = this.createStringForOneEvent(firstDateTime, "Summary1") +
+                this.createStringForOneEvent("20210728T183000", "Summary2");
             CalovoParser p = new CalovoParser(calendar);
             Event e = p.GetNextEvent("20210601");
             Assert.AreEqual(firstDateTime, e.datetime);
+            Assert.AreEqual("Summary1", e.summary);
         }
 
         [TestMethod]
@@ -100,9 +105,15 @@ END:VEVENT", datetime, summary);
         [TestMethod]
         public void Test_GetAllNextEvents_currentCalendar_returnsValidEntries()
         {
-        //     CalovoParser p = new CalovoParser(this.GetCurrentCalendar());
-        //     List<Event> events = p.GetAllNextEvents("20200817");
-        //     Assert.AreEqual("", events[0].datetime);
+            CalovoParser p = new CalovoParser(this.GetCurrentCalendar());
+            List<Event> events = p.GetAllNextEvents("20210825");
+            // Console.WriteLine(events);   
+            foreach(Event e in events) {
+                Console.WriteLine(e.summary);
+            }
+            Assert.AreEqual(33, events.Count);
+            Assert.AreEqual("20210827T203000", events[0].datetime);
+            // Assert.AreEqual("20210827T203000", events[0].datetime);
         }
         
 

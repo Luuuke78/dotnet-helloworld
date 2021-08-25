@@ -1,6 +1,10 @@
 
 # zu 24.08.2021
-- [ ] lbra fix failing test
+- [ ] lbra implement GetNextEventString
+- [ ] cbra move calendar to assets
+
+# zu 24.08.2021
+- [x] lbra fix failing test
 - [ ] cbra move calendar to assets
 
 # zu 27.07.2021

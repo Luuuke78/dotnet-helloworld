@@ -29,9 +29,14 @@ public class CalovoParser
         }
         return eventlist;
     }
+    
+    public string GetNextEventString(string startDate) {
+        return "";
+    }
+
     public Event GetNextEvent(string startDate)
     {
-        string text, datum, spiel, zeile, datum_k, datum_curr, datum_k_curr;
+        string text, datum, zeile, datum_k, datum_curr, datum_k_curr;
         int a, b, c, d, e;
         Event g = new Event();
         datum_curr = "";
@@ -43,6 +48,7 @@ public class CalovoParser
         for (int i = 0; i < a; i++)
         {
             text = text_gesplittet[i];
+            
             if (text.Contains("DTSTART"))
             {
 
@@ -51,7 +57,6 @@ public class CalovoParser
                     c = text.IndexOf("SEQUENCE");
                     zeile = text.Substring(b, c - b);
                     d = zeile.IndexOf(":");
-                    Console.WriteLine("Zeile: " + zeile);
                     if (zeile.Substring(d + 1).Trim().Length > 8)
                         datum_k_curr = zeile.Substring(d + 1, 15);
                     else
@@ -61,7 +66,6 @@ public class CalovoParser
                         datum_k = "";
                     }
                     else {
-                        //Console.WriteLine(Convert.ToInt32(datum));
                         if (Convert.ToInt32(datum) != 0) {
                             if (Convert.ToInt32(datum_curr) <= Convert.ToInt32(datum)) {                        
                                 datum_k = datum_k_curr;
@@ -74,20 +78,18 @@ public class CalovoParser
                     }
                     g.datetime = datum_k;
                 }
-                /*
-                b = text.IndexOf("SUMMARY");
-                if (b > -1) {
-                    c = text.IndexOf("DESCRIPTION");
-                    zeile = text.Substring(b, c - b);
-                    d = zeile.IndexOf(":");
-                    e = zeile.IndexOf("|");
-                    g.summary = zeile.Substring(d + 1, e - d - 1).Trim();
-                    
+                
+                int summary_index = text.IndexOf("SUMMARY");
+                if (summary_index > -1) {
+                    int description_index = text.IndexOf("DESCRIPTION");
+                    zeile = text.Substring(summary_index, description_index - summary_index);
+                    int summary_content_index = zeile.IndexOf(":") + 1;
+                    g.summary = zeile.Substring(summary_content_index).Trim();
                     if (Convert.ToInt32(datum) < Convert.ToInt32(startDate)) {
                         g.summary = "";
                     }
                 }
-                */
+                
             }
         }
         return g;
