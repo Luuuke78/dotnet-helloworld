@@ -35,7 +35,6 @@ END:VEVENT", datetime, summary);
             Event e = p.GetNextEvent("20210720");
             Assert.AreEqual(datetime, e.datetime);
             Assert.AreEqual(summary, e.summary);
-            Assert.AreEqual(summary, e.summary);
         }
         [TestMethod]
         public void Test_GetNextEvent_calWithOneEntryButOnlyDate_returnsReferenceEvent()
@@ -76,11 +75,12 @@ END:VEVENT", datetime, summary);
         public void Test_GetNextEvent_calWithTwoEntriesAskForSecondOne_returnsSecondEvent()
         {
             string secondDateTime = "20210728T183000";
-            string calendar = this.createStringForOneEvent("20210721T183000", "BVB | Hertha | 30.") +
-                this.createStringForOneEvent(secondDateTime, "BVB | Hertha | 31.");
+            string calendar = this.createStringForOneEvent("20210721T183000", "Summary1") +
+                this.createStringForOneEvent(secondDateTime, "Summary2");
             CalovoParser p = new CalovoParser(calendar);
             Event e = p.GetNextEvent("20210723");
             Assert.AreEqual(secondDateTime, e.datetime);
+            Assert.AreEqual("Summary2", e.summary);
         }
 
         [TestMethod]
@@ -91,15 +91,18 @@ END:VEVENT", datetime, summary);
             string nextDateTime1 = "20210928T183000";
             string nextDateTime2 = "20211028T183000";
             string calendar = 
-                this.createStringForOneEvent(oldDateTime, "") +
-                this.createStringForOneEvent(nextDateTime0, "") +
-                this.createStringForOneEvent(nextDateTime1, "") +
-                this.createStringForOneEvent(nextDateTime2, "");
+                this.createStringForOneEvent(oldDateTime, "Summary") +
+                this.createStringForOneEvent(nextDateTime0, "Summary0") +
+                this.createStringForOneEvent(nextDateTime1, "Summary1") +
+                this.createStringForOneEvent(nextDateTime2, "Summary2");
             CalovoParser p = new CalovoParser(calendar);
             List<Event> eventlist = p.GetAllNextEvents("20210801");
             Assert.AreEqual(nextDateTime0, eventlist[0].datetime);
             Assert.AreEqual(nextDateTime1, eventlist[1].datetime);
             Assert.AreEqual(nextDateTime2, eventlist[2].datetime);
+            Assert.AreEqual("Summary0", eventlist[0].summary);
+            Assert.AreEqual("Summary1", eventlist[1].summary);
+            Assert.AreEqual("Summary2", eventlist[2].summary);
         }
 
         [TestMethod]
