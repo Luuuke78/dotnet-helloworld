@@ -1,8 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using ParserLibs;
 
-namespace CalovoParserTestMS
+namespace CalovoParserTests
 {
     [TestClass]
     public class CalovoParserTest
