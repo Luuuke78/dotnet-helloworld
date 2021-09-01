@@ -7,10 +7,12 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello World");
         string text = System.IO.File.ReadAllText(@"assets\buli.ics");
         CalovoParser cp = new CalovoParser(text);
         List<Event> events = cp.GetAllNextEvents("20210827");
-        Console.WriteLine(events[0].datetime);
+        
+        for (int i = 0; i < 10; i++) {
+            Console.WriteLine(events[i].datetime + ": " + events[i].summary);
+        }
     }
 }
