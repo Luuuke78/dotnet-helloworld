@@ -1,11 +1,13 @@
-# How to build
+# Calovo Parser project
+
+## How to build
 
 dotnet build
 
-# How to run tests
+## How to run tests
 
 dotnet test
 
-# How to run ShowCase
+## How to run ShowCase
 
 dotnet run --project ShowCase\ShowCase.csproj
