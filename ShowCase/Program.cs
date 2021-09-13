@@ -33,7 +33,12 @@ class Program
         List<Event> events = cp.GetAllNextEvents("20210827");
         
         for (int i = 0; i < 18; i++) {
-            Console.WriteLine(events[i].datetime + ": " + events[i].summary);
+            if (events[i].datetime.Length > 8) {
+                Console.WriteLine(events[i].datetimeFormatted + " Uhr : " + events[i].summary);    
+            }
+            else {
+                Console.WriteLine(events[i].datetimeFormatted + "           : " + events[i].summary);
+            }
         }
     }
 

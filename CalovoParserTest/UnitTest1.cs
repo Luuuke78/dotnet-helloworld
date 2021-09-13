@@ -123,5 +123,23 @@ END:VEVENT", datetime, summary);
         private string GetCurrentCalendar() {    
             return System.IO.File.ReadAllText(@"..\..\..\..\assets\buli.ics");
         }
+
+        [TestMethod]
+        public void Test_GetNextEvent_WithDateFormatted_currentCalendar_returnsNextEntry()
+        {
+            CalovoParser p = new CalovoParser(this.GetCurrentCalendar());
+            Event e = p.GetNextEvent("20210913");
+            Assert.AreEqual("19.09.2021 17:30", e.datetimeFormatted);
+            Assert.AreEqual("Borussia Dortmund - 1. FC Union Berlin | Bundesliga | 5. Spieltag", e.summary);
+        }
+
+        [TestMethod]
+        public void Test_GetNextEventNotPlanned_WithDateFormatted_currentCalendar_returnsNextEntry()
+        {
+            CalovoParser p = new CalovoParser(this.GetCurrentCalendar());
+            Event e = p.GetNextEvent("20211128");
+            Assert.AreEqual("03.12.2021", e.datetimeFormatted);
+            Assert.AreEqual("Borussia Dortmund - FC Bayern München | Bundesliga | 14. Spieltag", e.summary);
+        }
     }
 }

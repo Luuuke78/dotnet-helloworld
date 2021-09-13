@@ -7,10 +7,12 @@ namespace ParserLibs
     {
         public string datetime;
         public string summary;
+        public string datetimeFormatted;
 
         public Event() {
             this.datetime = "";
             this.summary = "";
+            this.datetimeFormatted = "";
         }
     }
     public class CalovoParser
@@ -28,9 +30,9 @@ namespace ParserLibs
                 datum_curr = e.datetime;
                 eventlist.Add(e);
             }
-            return eventlist;
-        }
-        
+            return eventlist;            
+        }                
+
         public string GetNextEventString(string startDate) {
             return "";
         }
@@ -93,11 +95,29 @@ namespace ParserLibs
                             }                       
                         }
                         g.datetime = datetime;
-                        g.summary = summary;
+                        g.summary = summary.Replace("\r\n ","").Replace("* ","");
+                        g.datetimeFormatted = GetDateTimeFormatted(datetime);
                     }                
                 }
             }
             return g;
+        }
+
+        public string GetDateTimeFormatted(string datetime) {
+            string datetimeFormatted;
+            if (datetime.Length == 0) {
+                datetimeFormatted = "";
+            } 
+            else {
+                if (datetime.Length > 8) {
+                    datetimeFormatted = datetime.Substring(6, 2) + "." + datetime.Substring(4, 2) + "." + datetime.Substring(0, 4) + " " +
+                    datetime.Substring(9, 2) + ":" + datetime.Substring(11, 2);
+                }
+                else {
+                    datetimeFormatted = datetime.Substring(6, 2) + "." + datetime.Substring(4, 2) + "." + datetime.Substring(0, 4);
+                }
+            }
+            return datetimeFormatted;
         }
     }
 
