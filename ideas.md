@@ -13,10 +13,7 @@
 
 Wie:
 
-- terminiert, nicht terminiert
 - nur Heimspiele BVB
-- Zeilenumbruch
-- Zeitstempel formatieren
 - GetAllNextEventsFromToday()
 - dynamisch Kalender laden
 - Zugriff per Web

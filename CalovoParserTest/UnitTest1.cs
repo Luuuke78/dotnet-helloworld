@@ -6,6 +6,62 @@ using ParserLibs;
 namespace CalovoParserTests
 {
     [TestClass]
+    public class EventTest
+    {
+        
+        [TestMethod]
+        public void Test_GetDateTimeFormatted_validStringIsCorrectlyFormatted()
+        {
+            Event e = new Event();
+            e.datetime = "20210919T173000";
+            Assert.AreEqual("19.09.2021 17:30", e.GetDateTimeFormatted());
+            e.datetime = "";
+            Assert.AreEqual("", "");
+        }
+
+        [TestMethod]
+        public void Test_GetSummaryFormatted_stringWithAsterisk_asteriskIsRemoved()
+        {
+            Event e = new Event();
+            e.summary = "* KEEP THIS";
+            Assert.AreEqual("KEEP THIS", e.GetSummaryFormatted());
+            e.summary = "** KEEP THIS";
+            Assert.AreEqual("KEEP THIS", e.GetSummaryFormatted());
+            e.summary = "KEEP THIS";
+            Assert.AreEqual("KEEP THIS", e.GetSummaryFormatted());
+            e.summary = "*KEEP THIS";
+            Assert.AreEqual("KEEP THIS", e.GetSummaryFormatted());
+            e.summary = "KEEP THIS*";
+            Assert.AreEqual("KEEP THIS", e.GetSummaryFormatted());
+        }
+
+        [TestMethod]
+        public void Test_GetSummaryFormatted_stringWithNewlines_newlinesAreRemoved()
+        {
+            Event e = new Event();
+            e.summary = "";
+            Assert.AreEqual("", e.GetSummaryFormatted());
+            
+            e.summary = @"
+";
+            Assert.AreEqual("", e.GetSummaryFormatted());
+            
+            e.summary = @"BEFORE-
+AFTER";
+            Assert.AreEqual("BEFORE-AFTER", e.GetSummaryFormatted());
+            
+            e.summary = @"BEFORE-
+ AFTER";
+            Assert.AreEqual("BEFORE-AFTER", e.GetSummaryFormatted());
+            
+            e.summary = @"BEFORE-
+ AFTER KEEP WHITESPACES WITHOUT NEWLINE";
+            Assert.AreEqual("BEFORE-AFTER KEEP WHITESPACES WITHOUT NEWLINE", e.GetSummaryFormatted());
+
+        }
+    }
+
+    [TestClass]
     public class CalovoParserTest
     {
         [TestMethod]
@@ -124,22 +180,5 @@ END:VEVENT", datetime, summary);
             return System.IO.File.ReadAllText(@"..\..\..\..\assets\buli.ics");
         }
 
-        [TestMethod]
-        public void Test_GetNextEvent_WithDateFormatted_currentCalendar_returnsNextEntry()
-        {
-            CalovoParser p = new CalovoParser(this.GetCurrentCalendar());
-            Event e = p.GetNextEvent("20210913");
-            Assert.AreEqual("19.09.2021 17:30", e.datetimeFormatted);
-            Assert.AreEqual("Borussia Dortmund - 1. FC Union Berlin | Bundesliga | 5. Spieltag", e.summary);
-        }
-
-        [TestMethod]
-        public void Test_GetNextEventNotPlanned_WithDateFormatted_currentCalendar_returnsNextEntry()
-        {
-            CalovoParser p = new CalovoParser(this.GetCurrentCalendar());
-            Event e = p.GetNextEvent("20211128");
-            Assert.AreEqual("03.12.2021", e.datetimeFormatted);
-            Assert.AreEqual("Borussia Dortmund - FC Bayern München | Bundesliga | 14. Spieltag", e.summary);
-        }
     }
 }

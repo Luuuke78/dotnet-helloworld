@@ -34,10 +34,10 @@ class Program
         
         for (int i = 0; i < 18; i++) {
             if (events[i].datetime.Length > 8) {
-                Console.WriteLine(events[i].datetimeFormatted + " Uhr : " + events[i].summary);    
+                Console.WriteLine(events[i].GetDateTimeFormatted() + " Uhr : " + events[i].GetSummaryFormatted());    
             }
             else {
-                Console.WriteLine(events[i].datetimeFormatted + "           : " + events[i].summary);
+                Console.WriteLine(events[i].GetDateTimeFormatted() + "           : " + events[i].GetSummaryFormatted());
             }
         }
     }
