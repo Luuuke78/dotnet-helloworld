@@ -1,4 +1,7 @@
 
+# zu 21.09.2021
+- [ ] lbra https://dotnet.microsoft.com/learn/aspnet/blazor-tutorial/intro
+- [ ] cbra test deployment
 # zu 24.08.2021
 - [x] lbra implement GetNextEventString
 - [x] cbra move calendar to assets
