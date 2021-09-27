@@ -153,7 +153,7 @@ END:VEVENT", datetime, summary);
                 this.createStringForOneEvent(nextDateTime1, "Summary1") +
                 this.createStringForOneEvent(nextDateTime2, "Summary2");
             CalovoParser p = new CalovoParser(calendar);
-            List<Event> eventlist = p.GetAllNextEvents("20210801");
+            List<Event> eventlist = p.GetAllNextEvents("20210801", false);
             Assert.AreEqual(nextDateTime0, eventlist[0].datetime);
             Assert.AreEqual(nextDateTime1, eventlist[1].datetime);
             Assert.AreEqual(nextDateTime2, eventlist[2].datetime);
@@ -166,7 +166,7 @@ END:VEVENT", datetime, summary);
         public void Test_GetAllNextEvents_currentCalendar_returnsValidEntries()
         {
             CalovoParser p = new CalovoParser(this.GetCurrentCalendar());
-            List<Event> events = p.GetAllNextEvents("20210825");
+            List<Event> events = p.GetAllNextEvents("20210825", false);
             // Console.WriteLine(events);   
             foreach(Event e in events) {
                 Console.WriteLine(e.summary);
@@ -174,6 +174,30 @@ END:VEVENT", datetime, summary);
             Assert.AreEqual(33, events.Count);
             Assert.AreEqual("20210827T203000", events[0].datetime);
             // Assert.AreEqual("20210827T203000", events[0].datetime);
+        }
+
+        [TestMethod]
+        public void Test_GetNextEvent_calWithOneEntryAndSummary_returnsOpponentAndHome()
+        {
+            string summary = "Bayer 04 Leverkusen - Borussia Dortmund | Bundesliga | 4. Spieltag";
+            string datetime = "20210911T153000";
+            string calendar = this.createStringForOneEvent(datetime, summary);
+            CalovoParser p = new CalovoParser(calendar);
+            Event e = p.GetNextEvent("20210910");
+            Assert.AreEqual(e.opponent, "Bayer 04 Leverkusen");
+            Assert.AreEqual(e.homematch, false);
+        }
+
+        [TestMethod]
+        public void Test_GetNextEvent_calWithOneEntryAndSummary_returnsOpponentAndNotHome()
+        {
+            string summary = "Borussia Dortmund - 1. FC Union Berlin | Bundesliga | 5. Spieltag";
+            string datetime = "20210919T173000";
+            string calendar = this.createStringForOneEvent(datetime, summary);
+            CalovoParser p = new CalovoParser(calendar);
+            Event e = p.GetNextEvent("20210910");
+            Assert.AreEqual(e.opponent, "1. FC Union Berlin");
+            Assert.AreEqual(e.homematch, true);
         }
 
         private string GetCurrentCalendar() {    

@@ -30,14 +30,14 @@ class Program
 
         //string text = System.IO.File.ReadAllText(@"assets\buli.ics");
         CalovoParser cp = new CalovoParser(text);
-        List<Event> events = cp.GetAllNextEvents("20210827");
+        List<Event> events = cp.GetAllNextEvents("20210827", true);
         
-        for (int i = 0; i < 18; i++) {
+        for (int i = 0; i < events.Count; i++) {
             if (events[i].datetime.Length > 8) {
-                Console.WriteLine(events[i].GetDateTimeFormatted() + " Uhr : " + events[i].GetSummaryFormatted());    
+                Console.WriteLine(events[i].GetDateTimeFormatted() + " Uhr : " + events[i].opponent);    
             }
             else {
-                Console.WriteLine(events[i].GetDateTimeFormatted() + "           : " + events[i].GetSummaryFormatted());
+                Console.WriteLine(events[i].GetDateTimeFormatted() + "           : " + events[i].opponent);
             }
         }
     }
