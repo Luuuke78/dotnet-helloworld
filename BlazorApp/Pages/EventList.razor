@@ -1,0 +1,43 @@
+﻿@page "/eventlist"
+
+@inject HttpClient MyHttpClient
+<h3>EventList</h3>
+
+@if (events.Count() == 0)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+        
+    <ol>
+        @foreach (Event e in events)
+        {
+        <li>@e.GetDateTimeFormatted() @e.GetSummaryFormatted()</li>
+
+        }
+    </ol>
+}
+
+@code {
+
+    string aCalendar = "";
+    private CalovoParser cpp;
+    List<Event> events = new List<Event>();
+    
+    public EventList() {
+         
+        //events = new List<Event>();
+    }
+    private string uri = "http://i.cal.to/ical/2704/bundesliga/borussia-dortmund/6be29136.4e662db2-12985be5.ics";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        aCalendar = await MyHttpClient.GetStringAsync(uri); //ForecastService.GetForecastAsync(DateTime.Now);
+        cpp = new CalovoParser(aCalendar);
+        events = cpp.GetAllNextEvents("20210827");
+    }
+    
+    
+}
