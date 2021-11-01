@@ -9,14 +9,13 @@
 }
 else
 {
-        
-    <ol>
+    <div class="eventlist">
         @foreach (Event e in events)
         {
-        <li>@e.GetDateTimeFormatted() @e.GetSummaryFormatted()</li>
-
+        <div class="row"><span class="datetime">@e.GetDateTimeFormatted()</span> <span class="opponent">@e.opponent</span></div>
         }
-    </ol>
+    </div>
+
 }
 
 @code {
@@ -36,7 +35,7 @@ else
     {
         aCalendar = await MyHttpClient.GetStringAsync(uri); //ForecastService.GetForecastAsync(DateTime.Now);
         cpp = new CalovoParser(aCalendar);
-        events = cpp.GetAllNextEvents("20210827");
+        events = cpp.GetAllNextEvents(DateTime.Today.ToString("yyyyMMdd"), true);
     }
     
     

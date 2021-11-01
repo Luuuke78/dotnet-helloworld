@@ -48,3 +48,12 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+.opponent {
+    color: blue;
+    padding: 0px 0px 10px 40px;
+}
+
+.eventlist {
+    padding: 10px 0px 0px 10px;
+}

@@ -30,7 +30,7 @@ class Program
 
         //string text = System.IO.File.ReadAllText(@"assets\buli.ics");
         CalovoParser cp = new CalovoParser(text);
-        List<Event> events = cp.GetAllNextEvents("20210827", true);
+        List<Event> events = cp.GetAllNextEvents(DateTime.Today.ToString("yyyyMMdd"), true);
         
         for (int i = 0; i < events.Count; i++) {
             if (events[i].datetime.Length > 8) {
