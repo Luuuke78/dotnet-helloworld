@@ -2,6 +2,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: gray;
 }
 
 a, .btn-link {
@@ -50,10 +51,24 @@ a, .btn-link {
     }
 
 .opponent {
-    color: blue;
-    padding: 0px 0px 10px 40px;
+    
+    color: #e9f000;
+    padding: 0px 0px 10px 0px;
 }
 
 .eventlist {
     padding: 10px 0px 0px 10px;
+}
+
+h3 {
+    color:  rgb(34, 25, 25);
+}
+
+.datetime {
+    width: 150px;
+}
+
+.weekday {
+    padding-right: 10px;
+    width: 40px;
 }
