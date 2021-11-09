@@ -28,3 +28,18 @@ Wie:
 
 - Bon rein, Kontoauszug rein
 - manuelle Eingaben
+
+
+## Verbrauchsanalyse
+
+**Zweck** Status Strom-, Gas-, Benzinverbrauch
+
+Wie:
+- durch Sprache eingeben
+
+
+## Dart counter app
+
+- Punktestand anzeigen (501 runter)
+- Spracheingabe (17,16 Doppel20)
+- auf grossem Bildschirm
