@@ -189,19 +189,19 @@ END:VEVENT", datetime, summary);
             Assert.AreEqual("Summary2", eventlist[2].summary);
         }
 
-        // [TestMethod]
-        // public void Test_GetAllNextEvents_currentCalendar_returnsValidEntries()
-        // {
-        //     CalovoParser p = new CalovoParser(this.GetCurrentCalendar());
-        //     List<Event> events = p.GetAllNextEvents("20210825", false);
-        //     // Console.WriteLine(events);   
-        //     foreach(Event e in events) {
-        //         Console.WriteLine(e.summary);
-        //     }
-        //     Assert.AreEqual(33, events.Count);
-        //     Assert.AreEqual("20210827T203000", events[0].datetime);
-        //     // Assert.AreEqual("20210827T203000", events[0].datetime);
-        // }
+        [TestMethod]
+        public void Test_GetAllNextEvents_currentCalendar_returnsValidEntries()
+        {
+            CalovoParser p = new CalovoParser(this.GetCurrentCalendar());
+            List<Event> events = p.GetAllNextEvents("20210825", false);
+            // Console.WriteLine(events);   
+            foreach(Event e in events) {
+                Console.WriteLine(e.summary);
+            }
+            Assert.AreEqual(33, events.Count);
+            Assert.AreEqual("20210827T203000", events[0].datetime);
+            // Assert.AreEqual("20210827T203000", events[0].datetime);
+        }
 
         [TestMethod]
         public void Test_GetNextEvent_calWithOneEntryAndSummary_returnsOpponentAndHome()
@@ -227,9 +227,9 @@ END:VEVENT", datetime, summary);
             Assert.AreEqual(e.homematch, true);
         }
 
-        // private string GetCurrentCalendar() {    
-        //     return System.IO.File.ReadAllText(@"..\..\..\..\assets\buli.ics");
-        // }
+        private string GetCurrentCalendar() {    
+            return System.IO.File.ReadAllText(@"..\..\..\..\CalovoParserTest\Data\buli.ics");
+        }
 
     }
 }

@@ -28,7 +28,6 @@ class Program
             Console.WriteLine("Message :{0} ",e.Message);
         }
 
-        //string text = System.IO.File.ReadAllText(@"assets\buli.ics");
         CalovoParser cp = new CalovoParser(text);
         List<Event> events = cp.GetAllNextEvents(DateTime.Today.ToString("yyyyMMdd"), true);
         
