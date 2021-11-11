@@ -47,7 +47,6 @@ namespace ParserLibs
                 DateTime dt = DateTime.ParseExact(this.datetime, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
                 return dt.ToString("ddd");
             }
-            return "";
         }
 
     }

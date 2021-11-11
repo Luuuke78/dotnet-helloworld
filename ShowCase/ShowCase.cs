@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 
 
-class Program
+class ShowCase
 {
     static readonly HttpClient client = new HttpClient();
 
-    static async Task MainAsync()
+    public static async Task MainAsync()
     {
         string text = "";
         try	
@@ -41,7 +41,7 @@ class Program
         }
     }
 
-    static void Main(string[] args)
+    static void Main2(string[] args)
     {  
         MainAsync().Wait();
     }

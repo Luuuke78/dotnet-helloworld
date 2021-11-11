@@ -2,7 +2,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-color: gray;
+    background-color: #ffe600;
 }
 
 a, .btn-link {
@@ -49,10 +49,15 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+.event-row {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: small;
+}
 
 .opponent {
     
-    color: #e9f000;
+    text-transform: uppercase;
     padding: 0px 0px 10px 0px;
 }
 
@@ -61,11 +66,18 @@ a, .btn-link {
 }
 
 h3 {
-    color:  rgb(34, 25, 25);
+    font-size: 37px;
+    line-height: 48px;
+    padding-top: 7px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    color: #000;
+    border-bottom: 8px solid #000;
 }
 
 .datetime {
-    width: 150px;
+    min-width: 126px;
+    font-weight: bold;
 }
 
 .weekday {

@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace BlazorApp
+namespace TempelApp
 {
     public class Startup
     {
@@ -26,6 +26,7 @@ namespace BlazorApp
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            // services.AddSingleton<ParserLibs.CalovoParser>();
             services.AddSingleton<System.Net.Http.HttpClient>();
         }
 

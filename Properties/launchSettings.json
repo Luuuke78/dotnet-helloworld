@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:45367",
+      "applicationUrl": "http://localhost:61698",
       "sslPort": 0
     }
   },
@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "BlazorApp": {
+    "TempelApp": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

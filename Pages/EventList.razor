@@ -1,5 +1,6 @@
 ﻿@page "/eventlist"
 
+
 @inject HttpClient MyHttpClient
 <h3>Tempeltermine</h3>
 
@@ -12,7 +13,7 @@ else
     <div class="eventlist">
         @foreach (Event e in events)
         {
-        <div class="row">
+        <div class="event-row">
             <span class="weekday">@e.GetWeekday()</span>
             <span class="datetime">@e.GetDateTimeFormatted()</span>
             <span class="opponent">@e.opponent</span>

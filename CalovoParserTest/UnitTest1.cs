@@ -228,7 +228,7 @@ END:VEVENT", datetime, summary);
         }
 
         private string GetCurrentCalendar() {    
-            return System.IO.File.ReadAllText(@"..\..\..\..\CalovoParserTest\Data\buli.ics");
+            return System.IO.File.ReadAllText(@"..\..\..\CalovoParserTest\Data\buli.ics");
         }
 
     }
