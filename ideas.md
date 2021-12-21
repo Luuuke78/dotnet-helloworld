@@ -1,25 +1,37 @@
 
 # IDEAS
 
+## Blockchain verstehen
+- Vortrag / Website anschauen
+
+## Fußballdaten auswerten
+**Zweck**: Darstellung Tabellenplatzierung
+
+Wie:
+- heise-Artikel https://www.heise.de/hintergrund/Datenanalyse-mit-Python-Erste-Schritte-mit-Pandas-Fussballdaten-auswerten-6185299.html?wt_mc=rss.red.developer.developer.atom.beitrag_plus.beitrag_plus
+
 ## Fenstertitel abgreifen
 
 **Zweck**: Dokumentsync
 
 ---
 
+## VS Code Extension
+- Fuer MeViSLab Code
+
 ## Ausgabe der naechsten BVB-Heimspiele
 
 **Zweck**: wo könnten wir naechstes Mal hin?
 
-Wie:
-
-- nur Heimspiele BVB
-- GetAllNextEventsFromToday()
-- dynamisch Kalender laden
-- Zugriff per Web
+Offen:
+- Handy-App (mit Websiteaufruf, wie Electron-App)
+- Doodle-Funktionalität (wer kann wann?)
 
 ---
 
+## Einkaufsapp
+- Handyapp fuer Webservice
+- dynamische Listen
 ## Eigene Abrechnung
 
 **Zweck**: wofuer gebe ich Geld aus?
