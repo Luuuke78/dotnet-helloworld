@@ -30,7 +30,7 @@ namespace CalovoParserTests
             Assert.AreEqual("So", e.GetWeekday());
             
             e.datetime = "";
-            Assert.AreEqual("", "");
+            Assert.AreEqual("", e.GetWeekday());
          
             e.datetime = "20211114";
             Assert.AreEqual("So", e.GetWeekday());

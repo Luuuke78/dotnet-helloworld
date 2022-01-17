@@ -43,10 +43,11 @@ namespace ParserLibs
             if (datetime.Length > 8) {
                 DateTime dt = DateTime.ParseExact(this.datetime, "yyyyMMddTHHmmss", System.Globalization.CultureInfo.InvariantCulture);
                 return dt.ToString("ddd");
-            } else {
+            } else if (datetime.Length > 0) {
                 DateTime dt = DateTime.ParseExact(this.datetime, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
                 return dt.ToString("ddd");
             }
+            return "";
         }
 
     }
