@@ -1,0 +1,47 @@
+﻿@page "/all"
+
+
+@inject HttpClient MyHttpClient
+<h3>Tempeltermine</h3>
+
+@if (events.Count() == 0)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="eventlist">
+        @foreach (Event e in events)
+        {
+        <div class="event-row">
+            <span class="weekday">@e.GetWeekday()</span>
+            <span class="datetime">@e.GetDateTimeFormatted()</span>
+            <span class="opponent">@e.opponent</span>
+        </div>
+        }
+    </div>
+
+}
+
+@code {
+
+    string aCalendar = "";
+    private CalovoParser cpp;
+    List<Event> events = new List<Event>();
+    
+    public void EventList() {
+         
+        //events = new List<Event>();
+    }
+    private string uri = "http://i.cal.to/ical/2704/bundesliga/borussia-dortmund/6be29136.4e662db2-12985be5.ics";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        aCalendar = await MyHttpClient.GetStringAsync(uri); //ForecastService.GetForecastAsync(DateTime.Now);
+        cpp = new CalovoParser(aCalendar);
+        events = cpp.GetAllNextEvents(DateTime.Today.ToString("yyyyMMdd"), false);
+    }
+    
+    
+}
